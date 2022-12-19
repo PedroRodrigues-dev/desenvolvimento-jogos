@@ -6,9 +6,9 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class Spritesheet {
-	
+
 	private BufferedImage spritesheet;
-	
+
 	public Spritesheet(String path) {
 		try {
 			this.spritesheet = ImageIO.read(this.getClass().getResource(path));
@@ -16,8 +16,8 @@ public class Spritesheet {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public BufferedImage getSprite(int x, int y, int width, int heigth) {
-		return spritesheet.getSubimage(x, y, width, heigth);		
+		return spritesheet.getSubimage(x, y, width, heigth);
 	}
 }
