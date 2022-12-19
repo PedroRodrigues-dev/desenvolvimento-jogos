@@ -22,8 +22,8 @@ public class Game extends Canvas implements Runnable, KeyListener {
 
 	public static JFrame frame;
 
-	private final int WIDTH = 240;
-	private final int HEIGHT = 160;
+	public static final int WIDTH = 320;
+	public static final int HEIGHT = 240;
 	private final int SCALE = 3;
 
 	private Thread thread;
@@ -34,25 +34,25 @@ public class Game extends Canvas implements Runnable, KeyListener {
 
 	public static World world;
 
-	public List<Entity> entities;
-	private Player player;
+	public static List<Entity> entities;
+	public static Player player;
 
 	public Game() {
-		super.setPreferredSize(new Dimension(this.WIDTH * this.SCALE, this.HEIGHT * this.SCALE));
+		super.setPreferredSize(new Dimension(Game.WIDTH * this.SCALE, Game.HEIGHT * this.SCALE));
 
 		super.addKeyListener(this);
 
 		this.createFrame();
 
-		this.bufferedImage = new BufferedImage(this.WIDTH, this.HEIGHT, BufferedImage.TYPE_INT_RGB);
+		this.bufferedImage = new BufferedImage(Game.WIDTH, Game.HEIGHT, BufferedImage.TYPE_INT_RGB);
 		Game.spritesheet = new Spritesheet("/spritesheet.png");
 
+		Game.entities = new ArrayList<Entity>();
+
+		Game.player = new Player(0, 0, 16, 16, spritesheet.getSprite(32, 0, 16, 16));
+		Game.entities.add(Game.player);
+
 		Game.world = new World("/map.png");
-
-		this.entities = new ArrayList<Entity>();
-
-		this.player = new Player(0, 0, 16, 16, spritesheet.getSprite(32, 0, 16, 16));
-		this.entities.add(this.player);
 	}
 
 	private void createFrame() {
@@ -89,7 +89,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
 	}
 
 	public void tick() {
-		for (Entity entity : this.entities) {
+		for (Entity entity : Game.entities) {
 			if (entity instanceof Player) {
 
 			}
@@ -107,18 +107,18 @@ public class Game extends Canvas implements Runnable, KeyListener {
 
 		Graphics graphics = bufferedImage.getGraphics();
 		graphics.setColor(new Color(0, 0, 0));
-		graphics.fillRect(0, 0, this.WIDTH, this.HEIGHT);
+		graphics.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
 
 		Game.world.render(graphics);
 
-		for (Entity entity : this.entities) {
+		for (Entity entity : Game.entities) {
 			entity.render(graphics);
 		}
 
 		graphics.dispose();
 
 		graphics = bufferStrategy.getDrawGraphics();
-		graphics.drawImage(bufferedImage, 0, 0, this.WIDTH * this.SCALE, this.HEIGHT * this.SCALE, null);
+		graphics.drawImage(bufferedImage, 0, 0, Game.WIDTH * this.SCALE, Game.HEIGHT * this.SCALE, null);
 
 		bufferStrategy.show();
 	}
@@ -154,24 +154,24 @@ public class Game extends Canvas implements Runnable, KeyListener {
 		switch (keyEvent.getKeyCode()) {
 			case KeyEvent.VK_UP:
 			case KeyEvent.VK_W:
-				this.player.up = true;
+				Game.player.up = true;
 				break;
 
 			case KeyEvent.VK_DOWN:
 			case KeyEvent.VK_S:
-				this.player.down = true;
+				Game.player.down = true;
 				break;
 		}
 
 		switch (keyEvent.getKeyCode()) {
 			case KeyEvent.VK_LEFT:
 			case KeyEvent.VK_A:
-				this.player.left = true;
+				Game.player.left = true;
 				break;
 
 			case KeyEvent.VK_RIGHT:
 			case KeyEvent.VK_D:
-				this.player.right = true;
+				Game.player.right = true;
 				break;
 		}
 	}
@@ -181,24 +181,24 @@ public class Game extends Canvas implements Runnable, KeyListener {
 		switch (keyEvent.getKeyCode()) {
 			case KeyEvent.VK_UP:
 			case KeyEvent.VK_W:
-				this.player.up = false;
+				Game.player.up = false;
 				break;
 
 			case KeyEvent.VK_DOWN:
 			case KeyEvent.VK_S:
-				this.player.down = false;
+				Game.player.down = false;
 				break;
 		}
 
 		switch (keyEvent.getKeyCode()) {
 			case KeyEvent.VK_LEFT:
 			case KeyEvent.VK_A:
-				this.player.left = false;
+				Game.player.left = false;
 				break;
 
 			case KeyEvent.VK_RIGHT:
 			case KeyEvent.VK_D:
-				this.player.right = false;
+				Game.player.right = false;
 				break;
 		}
 	}

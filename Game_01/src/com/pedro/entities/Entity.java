@@ -4,13 +4,14 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import com.pedro.main.Game;
+import com.pedro.world.Camera;
 
 public class Entity {
 
-	public static BufferedImage LIFEPACK = Game.spritesheet.getSprite(112, 0, 16, 16);
-	public static BufferedImage WEAPON = Game.spritesheet.getSprite(128, 0, 16, 16);
-	public static BufferedImage BULLET = Game.spritesheet.getSprite(112, 16, 16, 16);
-	public static BufferedImage ENEMY = Game.spritesheet.getSprite(128, 16, 16, 16);
+	public static BufferedImage LIFEPACK_SPRITE = Game.spritesheet.getSprite(6 * 16, 0, 16, 16);
+	public static BufferedImage WEAPON_SPRITE = Game.spritesheet.getSprite(7 * 16, 0, 16, 16);
+	public static BufferedImage BULLET_SPRITE = Game.spritesheet.getSprite(6 * 16, 16, 16, 16);
+	public static BufferedImage ENEMY_SPRITE = Game.spritesheet.getSprite(7 * 16, 16, 16, 16);
 
 	protected double x;
 	protected double y;
@@ -32,7 +33,7 @@ public class Entity {
 	}
 
 	public void render(Graphics graphics) {
-		graphics.drawImage(sprite, this.getX(), this.getY(), null);
+		graphics.drawImage(sprite, this.getX() - Camera.x, this.getY() - Camera.y, null);
 	}
 
 	public int getX() {

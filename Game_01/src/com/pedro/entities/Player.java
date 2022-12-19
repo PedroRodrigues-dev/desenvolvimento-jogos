@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import com.pedro.main.Game;
+import com.pedro.world.Camera;
 
 public class Player extends Entity {
 
@@ -79,14 +80,19 @@ public class Player extends Entity {
 				}
 			}
 		}
+
+		Camera.x = this.getX() - (Game.WIDTH / 2);
+		Camera.y = this.getY() - (Game.HEIGHT / 2);
 	}
 
 	@Override
 	public void render(Graphics graphics) {
 		if (this.lastDirection == Direction.LEFT) {
-			graphics.drawImage(this.leftPlayer[this.frameIndex], super.getX(), super.getY(), null);
+			graphics.drawImage(this.leftPlayer[this.frameIndex], super.getX() - Camera.x, super.getY()
+					- Camera.y, null);
 		} else if (this.lastDirection == Direction.RIGHT) {
-			graphics.drawImage(this.rightPlayer[this.frameIndex], super.getX(), super.getY(), null);
+			graphics.drawImage(this.rightPlayer[this.frameIndex], super.getX() - Camera.x, super.getY()
+					- Camera.y, null);
 		}
 	}
 }
