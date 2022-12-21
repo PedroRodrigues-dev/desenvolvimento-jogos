@@ -55,7 +55,9 @@ public class World {
                             Game.entities.add(new Bullet(x * 16, y * 16, 16, 16, Entity.BULLET_SPRITE));
                             break;
                         case 0xFFFF0000:
-                            Game.entities.add(new Enemy(x * 16, y * 16, 16, 16, Entity.ENEMY_SPRITE));
+                            Enemy enemy = new Enemy(x * 16, y * 16, 16, 16, Entity.ENEMY_SPRITE);
+                            Game.entities.add(enemy);
+                            Game.enemies.add(enemy);
                             break;
                         case 0xFF4800FF:
                             Game.player.setX(x * 16);

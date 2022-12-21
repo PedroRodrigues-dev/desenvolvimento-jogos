@@ -10,9 +10,11 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.swing.JFrame;
 
+import com.pedro.entities.Enemy;
 import com.pedro.entities.Entity;
 import com.pedro.entities.Player;
 import com.pedro.graphics.Spritesheet;
@@ -35,7 +37,10 @@ public class Game extends Canvas implements Runnable, KeyListener {
 	public static World world;
 
 	public static List<Entity> entities;
+	public static List<Enemy> enemies;
 	public static Player player;
+
+	public static Random random;
 
 	public Game() {
 		super.setPreferredSize(new Dimension(Game.WIDTH * this.SCALE, Game.HEIGHT * this.SCALE));
@@ -44,10 +49,13 @@ public class Game extends Canvas implements Runnable, KeyListener {
 
 		this.createFrame();
 
+		Game.random = new Random();
+
 		this.bufferedImage = new BufferedImage(Game.WIDTH, Game.HEIGHT, BufferedImage.TYPE_INT_RGB);
 		Game.spritesheet = new Spritesheet("/spritesheet.png");
 
 		Game.entities = new ArrayList<Entity>();
+		Game.enemies = new ArrayList<Enemy>();
 
 		Game.player = new Player(0, 0, 16, 16, spritesheet.getSprite(32, 0, 16, 16));
 		Game.entities.add(Game.player);
