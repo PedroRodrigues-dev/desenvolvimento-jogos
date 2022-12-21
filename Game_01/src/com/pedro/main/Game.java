@@ -22,8 +22,8 @@ public class Game extends Canvas implements Runnable, KeyListener {
 
 	public static JFrame frame;
 
-	public static final int WIDTH = 320;
-	public static final int HEIGHT = 240;
+	public static final int WIDTH = 240;
+	public static final int HEIGHT = 160;
 	private final int SCALE = 3;
 
 	private Thread thread;
@@ -125,6 +125,8 @@ public class Game extends Canvas implements Runnable, KeyListener {
 
 	@Override
 	public void run() {
+		super.requestFocus();
+
 		long lastTime = System.nanoTime();
 		double amountOfTicks = 60.0;
 		double nanoSeconds = 1000000000 / amountOfTicks;

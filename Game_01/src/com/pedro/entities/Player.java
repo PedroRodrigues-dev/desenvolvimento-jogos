@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 
 import com.pedro.main.Game;
 import com.pedro.world.Camera;
+import com.pedro.world.World;
 
 public class Player extends Entity {
 
@@ -44,23 +45,23 @@ public class Player extends Entity {
 	public void tick() {
 		this.moved = false;
 
-		if (this.up) {
+		if (this.up && World.isFree(super.getX(), (int) (super.y - this.speed))) {
 			this.moved = true;
 
 			super.y -= this.speed;
-		} else if (this.down) {
+		} else if (this.down && World.isFree(super.getX(), (int) (super.y + this.speed))) {
 			this.moved = true;
 
 			super.y += this.speed;
 		}
 
-		if (this.left) {
+		if (this.left && World.isFree((int) (super.x - this.speed), super.getY())) {
 			this.moved = true;
 
 			this.lastDirection = Direction.LEFT;
 
 			super.x -= this.speed;
-		} else if (this.right) {
+		} else if (this.right && World.isFree((int) (super.x + this.speed), super.getY())) {
 			this.moved = true;
 
 			this.lastDirection = Direction.RIGHT;
@@ -81,8 +82,8 @@ public class Player extends Entity {
 			}
 		}
 
-		Camera.x = this.getX() - (Game.WIDTH / 2);
-		Camera.y = this.getY() - (Game.HEIGHT / 2);
+		Camera.x = Camera.clamp(super.getX() - (Game.WIDTH / 2), 0, World.WIDTH * 16 - Game.WIDTH);
+		Camera.y = Camera.clamp(super.getY() - (Game.HEIGHT / 2), 0, World.HEIGHT * 16 - Game.HEIGHT);
 	}
 
 	@Override
